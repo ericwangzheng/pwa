@@ -26,9 +26,9 @@ function startServer() {
     app.use(express.static('public'));
 
     // Start the server
-    return app.listen('80', () => {
+    return app.listen('80', '0.0.0.0', () => {
         // eslint-disable-next-line no-console
-        console.log('Local DevServer Started on port 8000...');
+        console.log('Local DevServer Started on port 80...');
     });
 }
 
