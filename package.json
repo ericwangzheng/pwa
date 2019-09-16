@@ -1,0 +1,27 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "eric first pwa",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericwangzheng/pwa.git"
+  },
+  "keywords": [
+    "pwa"
+  ],
+  "author": "ericwangzheng",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericwangzheng/pwa/issues"
+  },
+  "homepage": "https://github.com/ericwangzheng/pwa#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-http-to-https": "^1.1.4"
+  }
+}
