@@ -6,18 +6,13 @@
 const express = require('express');
 const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
 const fs = require('fs');
+const https = require('https');
 
 function startServer() {
-    // credentials
-    const credentials = {
-        key: fs.readFileSync('./server.key'),
-        cert: fs.readFileSync('./server.pem')
-    };
-
-    var app = express(credentials);
+    var app = express();
 
     // Redirect HTTP to HTTPS,
-    // app.use(redirectToHTTPS([/localhost:(\d{4})/], [], 301));
+    app.use(redirectToHTTPS([/localhost:(\d{4})/], [], 301));
 
     // Logging for each request
     app.use((req, resp, next) => {
@@ -33,8 +28,15 @@ function startServer() {
     // Handle requests for static files
     app.use(express.static('public'));
 
-    // Start the server
-    return app.listen('80', '0.0.0.0', () => {
+    // credentials
+    const credentials = {
+        key: fs.readFileSync('./server.key'),
+        cert: fs.readFileSync('./server.pem')
+    };
+
+    const httpsServer = https.createServer(credentials, app);
+
+    httpsServer.listen('443', '0.0.0.0', () => {
         // eslint-disable-next-line no-console
         console.log('Local DevServer Started on port 80...');
     });
