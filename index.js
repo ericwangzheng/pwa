@@ -6,6 +6,7 @@
 const express = require('express');
 const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
 const fs = require('fs');
+const http = require('http');
 const spdy = require('spdy');
 
 function startServer() {
@@ -34,11 +35,17 @@ function startServer() {
         cert: fs.readFileSync('./server.pem')
     };
 
+    const httpServer = http.createServer(app);
     const httpsServer = spdy.createServer(credentials, app);
+
+    httpServer.listen('80', '0.0.0.0', () => {
+        // eslint-disable-next-line no-console
+        console.log('Local DevServer Started on port 80...');
+    });
 
     httpsServer.listen('443', '0.0.0.0', () => {
         // eslint-disable-next-line no-console
-        console.log('Local DevServer Started on port 80...');
+        console.log('Local DevServer Started on port 433...');
     });
 }
 
