@@ -6,7 +6,7 @@
 const express = require('express');
 const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
 const fs = require('fs');
-const https = require('https');
+const spdy = require('spdy');
 
 function startServer() {
     var app = express();
@@ -34,7 +34,7 @@ function startServer() {
         cert: fs.readFileSync('./server.pem')
     };
 
-    const httpsServer = https.createServer(credentials, app);
+    const httpsServer = spdy.createServer(credentials, app);
 
     httpsServer.listen('443', '0.0.0.0', () => {
         // eslint-disable-next-line no-console
