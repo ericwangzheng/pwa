@@ -11,7 +11,7 @@ function startServer() {
     // credentials
     const credentials = {
         key: fs.readFileSync('./server.key'),
-        cert: fs.readFileSync('./server.crt')
+        cert: fs.readFileSync('./server.pem')
     };
 
     var app = express.createServer(credentials);
