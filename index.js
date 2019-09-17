@@ -11,10 +11,10 @@ function startServer() {
     // credentials
     const credentials = {
         key: fs.readFileSync('./server.key'),
-        cert: fs.readFileSync('./server.crt')
+        cert: fs.readFileSync('./server.pem')
     };
 
-    var app = express.createServer(credentials);
+    var app = express(credentials);
 
     // Redirect HTTP to HTTPS,
     // app.use(redirectToHTTPS([/localhost:(\d{4})/], [], 301));
