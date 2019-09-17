@@ -5,11 +5,19 @@
 'use strict';
 const express = require('express');
 const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
+const fs = require('fs');
 
 function startServer() {
-    const app = express();
+    // credentials
+    const credentials = {
+        key: fs.readFileSync('./server.key'),
+        cert: fs.readFileSync('./server.crt')
+    };
+
+    var app = express.createServer(credentials);
+
     // Redirect HTTP to HTTPS,
-    app.use(redirectToHTTPS([/localhost:(\d{4})/], [], 301));
+    // app.use(redirectToHTTPS([/localhost:(\d{4})/], [], 301));
 
     // Logging for each request
     app.use((req, resp, next) => {
